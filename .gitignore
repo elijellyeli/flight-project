@@ -1,0 +1,23 @@
+# mage ignore
+.DS_Store
+.file_versions
+.gitkeep
+.log
+.logs/
+.preferences.yaml
+.variables/
+__pycache__/
+docker-compose.override.yml
+logs/
+mage-ai.db
+mage_data/
+secrets/
+.mage_temp_profiles/
+
+# files ignore
+test-py/data/
+*.json
+*.dat
+.vscode
+.env
+.env_pg

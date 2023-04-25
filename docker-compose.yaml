@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:13-alpine3.17
+    restart: unless-stopped
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      - PG_DATA=/var/lib/postgresql/data/pgdata
+    env_file:
+      - .env_pg
+    ports:
+      - '5432:5432'   
+  mage:
+    container_name: mage-server
+    # image: my-mage-server:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    command: '/app/run_app.sh mage start flight'
+    depends_on:
+      - postgres
+    ports:
+      - '6789:6789'
+    environment:
+        - GOOGLE_APPLICATION_CREDENTIALS=/home/secrets/gcp_credentials.json
+        - ULIMIT_NO_FILE=16384
+    env_file:
+      - .env
+    links:
+      - postgres
+    volumes:
+      # - mage-server-vol:/home/mage_code
+      - ./:/home/mage_code
+      - /c/Users/elibh/.google/credentials/google_credentials.json:/home/secrets/gcp_credentials.json
+volumes:
+  pgdata:
+    driver: local

@@ -1,0 +1,55 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: pink
+  configuration: {}
+  downstream_blocks:
+  - load_api_arrival
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: set_unix_time
+  status: executed
+  type: custom
+  upstream_blocks: []
+  uuid: set_unix_time
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - export_gcs_arrivals
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: load_api_arrival
+  status: updated
+  type: data_loader
+  upstream_blocks:
+  - set_unix_time
+  uuid: load_api_arrival
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: export_gcs_arrivals
+  status: executed
+  type: data_exporter
+  upstream_blocks:
+  - load_api_arrival
+  uuid: export_gcs_arrivals
+data_integration: null
+description: null
+executor_count: 1
+extensions: {}
+name: load_arrivals
+type: python
+updated_at: '2023-04-23 13:08:51'
+uuid: load_arrivals
+variables:
+  airport: LLBG
+widgets: []

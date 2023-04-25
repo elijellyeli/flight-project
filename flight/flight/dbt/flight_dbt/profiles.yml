@@ -1,0 +1,11 @@
+flight_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: db.bit.io
+      port: 5432
+      user: mage
+      password: v2_3zrTg_tEtLAC2G528vpSWau9p79a3
+      schema: dbt_demo
+      dbname: mage/demo2
