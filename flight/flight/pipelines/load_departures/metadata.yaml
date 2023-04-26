@@ -10,11 +10,11 @@ blocks:
   has_callback: false
   language: python
   name: set_unix_time
-  status: updated
+  status: executed
   type: custom
   upstream_blocks: []
   uuid: set_unix_time
-- all_upstream_blocks_executed: false
+- all_upstream_blocks_executed: true
   color: null
   configuration: {}
   downstream_blocks:
@@ -29,7 +29,7 @@ blocks:
   upstream_blocks:
   - set_unix_time
   uuid: load_api_departures
-- all_upstream_blocks_executed: false
+- all_upstream_blocks_executed: true
   color: null
   configuration: {}
   downstream_blocks: []
@@ -38,7 +38,7 @@ blocks:
   has_callback: false
   language: python
   name: export_gcs_departures
-  status: executed
+  status: updated
   type: data_exporter
   upstream_blocks:
   - load_api_departures
@@ -49,7 +49,7 @@ executor_count: 1
 extensions: {}
 name: load_departures
 type: python
-updated_at: '2023-04-23 13:28:56'
+updated_at: '2023-04-26 18:53:21'
 uuid: load_departures
 variables:
   airport: LLBG

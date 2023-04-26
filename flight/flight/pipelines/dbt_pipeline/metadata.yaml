@@ -56,6 +56,6 @@ executor_count: 1
 extensions: {}
 name: dbt pipeline
 type: python
-updated_at: '2023-04-25 10:57:30'
+updated_at: '2023-04-26 19:22:39'
 uuid: dbt_pipeline
 widgets: []

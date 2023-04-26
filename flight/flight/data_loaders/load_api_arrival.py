@@ -1,5 +1,6 @@
 import pandas as pd
 import requests
+from os import getenv
 from mage_ai.data_preparation.variable_manager import get_variable
 from mage_ai.data_preparation.shared.secrets import get_secret_value
 
@@ -24,11 +25,13 @@ def load_data_from_api(dates, *args, **kwargs):
     airport = kwargs['airport']
 
     url_txt = f'https://opensky-network.org/api/flights/arrival?airport={airport}&begin={start_ts}&end={end_ts}'
-    # auth_tpl = (get_secret_value('opensky_uname'), get_secret_value('opensky_psswd'))
+    auth_tpl = (
+        getenv('OS_USERNAME'),
+        getenv('OS_PASSWORD'))
 
     print(f'url_txt = {url_txt}')
-    response = requests.get(url=url_txt, timeout=120)
-    # response = requests.get(url=url_txt, auth=auth_tpl, timeout=60)
+    # response = requests.get(url=url_txt, timeout=120)
+    response = requests.get(url=url_txt, auth=auth_tpl, timeout=120)
     response_txt = response.json()
 
     df_arrivals = pd.DataFrame.from_dict(response_txt)

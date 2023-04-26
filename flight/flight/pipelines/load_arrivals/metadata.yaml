@@ -23,7 +23,7 @@ blocks:
   has_callback: false
   language: python
   name: load_api_arrival
-  status: updated
+  status: failed
   type: data_loader
   upstream_blocks:
   - set_unix_time
@@ -37,7 +37,7 @@ blocks:
   has_callback: false
   language: python
   name: export_gcs_arrivals
-  status: executed
+  status: updated
   type: data_exporter
   upstream_blocks:
   - load_api_arrival
@@ -48,7 +48,7 @@ executor_count: 1
 extensions: {}
 name: load_arrivals
 type: python
-updated_at: '2023-04-23 13:08:51'
+updated_at: '2023-04-26 12:57:34'
 uuid: load_arrivals
 variables:
   airport: LLBG

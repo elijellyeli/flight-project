@@ -1,13 +1,12 @@
-from os import path
+from os import path, getenv
 import json
 from datetime import datetime, timedelta, timezone
 import pandas as pd
-from pandas import DataFrame
+import pyarrow as pa
 from mage_ai.data_preparation.repo_manager import get_repo_path
 from mage_ai.io.config import ConfigFileLoader
 from mage_ai.io.google_cloud_storage import GoogleCloudStorage
 from mage_ai.data_preparation.variable_manager import get_variable
-
 
 
 if 'data_exporter' not in globals():
@@ -35,8 +34,24 @@ def export_data_to_google_cloud_storage(df, *args, **kwargs) -> None:
 
     print(f'start_ts={start_ts}')
     print(f'df len={len(df)}')
-    # TODO Change to env variable bla
-    bucket_name = 'flights_project_120423'
+
+
+    p_schema = pa.schema(
+        [('icao24', pa.string()),
+         ('first_seen', pa.timestamp('s')),
+         ('dep_airport', pa.string()),
+         ('last_seen', pa.timestamp('s')),
+         ('arr_airport', pa.string()),
+         ('callsign', pa.string()),
+         ('dep_airport_horiz_distance', pa.int64()),
+         ('dep_airport_vert_distance', pa.int64()),
+         ('arr_airport_horiz_distance', pa.int64()),
+         ('arr_airport_vert_distance', pa.int64())
+        ])
+    
+
+    # bucket_name = 'flights_project_120423'
+    bucket_name = getenv('GCS_BUCKET_NAME')
 
     # get output from first step
     airport = kwargs['airport']
@@ -47,7 +62,7 @@ def export_data_to_google_cloud_storage(df, *args, **kwargs) -> None:
     print(f'start_str={start_str}')
 
     file_name = f'arrivals_{airport}_{start_str}.parquet'
-    obj_key = f'data/arrival/{file_name}'
+    obj_key = f'data/arrivals/{file_name}'
 
     print(f'obj_key={obj_key}')
     config_path = path.join(get_repo_path(), 'io_config.yaml')
@@ -59,5 +74,6 @@ def export_data_to_google_cloud_storage(df, *args, **kwargs) -> None:
             df=df,
             bucket_name=bucket_name,
             object_key=obj_key,
-            format='parquet'
+            format='parquet',
+            schema=p_schema
         )
