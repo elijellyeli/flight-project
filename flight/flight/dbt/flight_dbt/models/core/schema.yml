@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+    - name: stage
+      #For bigquery:
+      database: "{{ env_var('GCLOUD_PROJECT_NAME') }}"
+      schema: dbt_eli
+      tables:
+        - name: stg_airlines
+        - name: stg_airports
+        - name: stg_routes
+        - name: stg_arrivals
+        - name: stg_departues

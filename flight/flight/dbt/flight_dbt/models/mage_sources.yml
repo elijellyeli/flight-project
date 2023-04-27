@@ -1,9 +1,0 @@
-sources:
-- name: mage_demo
-  tables:
-  - name: dbt_demo_pipeline_load_data
-  - name: dbt_pipeline_load_dbt_data
-- name: mage_flight_dbt
-  tables:
-  - name: dbt_pipeline_load_dbt_data
-version: 2
