@@ -1,0 +1,75 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_path: flight_dbt/models/staging/stg_arrivals.sql
+  downstream_blocks:
+  - flight_dbt/models/core/fact_flights
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: flight_dbt/models/staging/stg_arrivals
+  status: executed
+  type: dbt
+  upstream_blocks: []
+  uuid: flight_dbt/models/staging/stg_arrivals
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_path: flight_dbt/models/staging/stg_departures.sql
+  downstream_blocks:
+  - flight_dbt/models/core/fact_flights
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: flight_dbt/models/staging/stg_departures
+  status: executed
+  type: dbt
+  upstream_blocks: []
+  uuid: flight_dbt/models/staging/stg_departures
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_path: flight_dbt/models/core/fact_flights.sql
+  downstream_blocks:
+  - flight_dbt/models/core/dim_daily_flights_agg
+  - flight_dbt/models/core/dim_daily_flights_agg
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: flight_dbt/models/core/fact_flights
+  status: executed
+  type: dbt
+  upstream_blocks:
+  - flight_dbt/models/staging/stg_arrivals
+  - flight_dbt/models/staging/stg_departures
+  uuid: flight_dbt/models/core/fact_flights
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_path: flight_dbt/models/core/dim_daily_flights_agg.sql
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: flight_dbt/models/core/dim_daily_flights_agg
+  status: executed
+  type: dbt
+  upstream_blocks:
+  - flight_dbt/models/core/fact_flights
+  - flight_dbt/models/core/fact_flights
+  uuid: flight_dbt/models/core/dim_daily_flights_agg
+callbacks: []
+data_integration: null
+description: null
+executor_count: 1
+extensions: {}
+name: dbt_daily_flights
+type: python
+updated_at: '2023-04-27 08:00:09'
+uuid: dbt_daily_flights
+widgets: []

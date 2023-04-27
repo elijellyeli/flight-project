@@ -10,10 +10,7 @@ with d as (
     select
         airport_id,  
         name, 
-        case 
-            when city = '' then null
-            else city
-        end as city,
+        {{ replace_empty_string_null('city') }},
         country, 
         iata,
         icao, 

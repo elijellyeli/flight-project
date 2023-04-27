@@ -26,10 +26,15 @@ docker build --platform linux/amd64 --tag my-app:latest .
 
 docker-compose up -d
 
-
-
 Update Mage
 
 ```bash
 docker pull mageai/mageai:latest
 ```
+
+
+
+
+dbt build --select fact_flights.sql dim_daily_flights_agg.sql dim_monthly_flights_agg.sql dim_monthly_country_agg.sql \
+
+--var 'is_test_run: false'

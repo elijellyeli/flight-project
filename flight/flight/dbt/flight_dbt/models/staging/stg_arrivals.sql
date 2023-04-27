@@ -23,7 +23,8 @@ with d as (
         dep_airport_horiz_distance,
         dep_airport_vert_distance,
         arr_airport_horiz_distance,
-        arr_airport_vert_distance
+        arr_airport_vert_distance,
+        'arrival' as flight_type
     from {{ source('raw','external_arrival')}}
     -- dbt build --select stg_divvy_data.sql --var 'is_test_run: false'
     {% if var('is_test_run', default=true) %}
@@ -33,9 +34,9 @@ with d as (
 
 final as (
     SELECT 
-        {{ dbt_utils.generate_surrogate_key(['icao24', 'first_seen']) }} as flight_id,
+        {{ dbt_utils.generate_surrogate_key(['flight_type', 'first_seen', 'icao24']) }} as flight_id,
         d.*
     FROM d
 )
 
-select * from final
+select distinct * from final

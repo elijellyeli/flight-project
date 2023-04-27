@@ -11,18 +11,21 @@ with d as (
         airline_id,
         name,
         alias,
-        case 
-            when iata = '' then null
-            else iata
-        end as iata,
+        {{ replace_empty_string_null('iata') }},
         icao,
-        case 
-            when callsign = '' then null
-            else callsign
-        end as callsign,
-        country
+        {{ replace_empty_string_null('callsign') }},
+        country,
+        ROW_NUMBER() OVER (PARTITION BY icao ORDER BY airline_id desc) as row_number
     from {{ source('raw','airlines')}}
     where active = 'Y'
-)
+),
 
-select * from d
+final as (
+    select
+        *
+    from d
+    where row_number = 1
+)
+  
+
+select * from final
