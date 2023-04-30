@@ -13,7 +13,6 @@ services:
       - '5432:5432'   
   mage:
     container_name: mage-server
-    # image: my-mage-server:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -31,7 +30,6 @@ services:
     links:
       - postgres
     volumes:
-      # - mage-server-vol:/home/mage_code
       - ./:/home/mage_code
       - /c/Users/elibh/.google/credentials/google_credentials.json:/home/secrets/gcp_credentials.json
 volumes:

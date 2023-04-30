@@ -1,0 +1,1 @@
+--select stg_arrivals.sql stg_departures.sql models/core 

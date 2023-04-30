@@ -7,7 +7,7 @@
             "data_type": "timestamp",
             "granularity": "day",
         },
-        cluster_by=["flight_type", "dep_airport", "arr_airport"]
+        cluster_by=["flight_type", "dep_airport_country", "arr_airport_country"]
     ) 
 }}
 
@@ -26,16 +26,17 @@ with
     final as (
         select 
             fu.*,
+            TIMESTAMP_DIFF(fu.last_seen, fu.first_seen, MINUTE) as est_flight_length_min,
             al.name as airline_name, 
             al.iata as airline_aita, 
             al.icao as airline_icao, 
-            al.country as airline_country, 
+            INITCAP(al.country) as airline_country, 
             dap.name as dep_airport_name,
             dap.city as dep_airport_city,
-            dap.country as dep_airport_country,
+            INITCAP(dap.country) as dep_airport_country,
             aap.name as arr_airport_name,
             aap.city as arr_airport_city,
-            aap.country as arr_airport_country
+            INITCAP(aap.country) as arr_airport_country
         from flights_unioned fu 
         left join airlines al on LEFT(fu.callsign,3) = al.icao
         left join airports dap on fu.dep_airport = dap.icao 

@@ -36,8 +36,8 @@ models:
     # Config indicated by + and applies to all files under models/example/
     core:
       +materialized: view
-      +schema: core
+      +dataset: core
     # Config indicated by + and applies to all files under models/example/
     staging:
       +materialized: table
-      +schema: staging
+      +dataset: staging

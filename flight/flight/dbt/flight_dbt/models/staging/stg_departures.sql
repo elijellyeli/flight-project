@@ -26,8 +26,8 @@ with d as (
         arr_airport_vert_distance,
         'departure' as flight_type
     from {{ source('raw','external_departure')}}
-    -- dbt build --select stg_divvy_data.sql --var 'is_test_run: false'
-    {% if var('is_test_run', default=true) %}
+    -- dbt build --select stg_arrivals.sql --var 'is_test_run: false'
+    {% if var('is_test_run', default=false) %}
     limit 100
     {% endif %}
 ), 

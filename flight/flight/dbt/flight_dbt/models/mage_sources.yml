@@ -1,0 +1,5 @@
+sources:
+- name: mage_flight_dbt
+  tables:
+  - name: dbt_daily_flights_trigger_load_pipelines
+version: 2

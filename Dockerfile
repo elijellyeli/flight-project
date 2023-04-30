@@ -20,6 +20,5 @@ ENV USER_CODE_PATH=${USER_CODE_PATH}
 # RUN python3 /app/install_other_dependencies.py --path ${USER_CODE_PATH}
 
 ENV PYTHONPATH="${PYTHONPATH}:${MAGE_CODE_PATH}"
-ENV BLAT="BLAT"
 
 CMD ["/bin/sh", "-c", "/app/run_app.sh"]

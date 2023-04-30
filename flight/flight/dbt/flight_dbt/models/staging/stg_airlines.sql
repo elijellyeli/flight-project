@@ -14,12 +14,12 @@ with d as (
         {{ replace_empty_string_null('iata') }},
         icao,
         {{ replace_empty_string_null('callsign') }},
-        country,
+        country
         ROW_NUMBER() OVER (PARTITION BY icao ORDER BY airline_id desc) as row_number
     from {{ source('raw','airlines')}}
     where active = 'Y'
 ),
-
+--  Get Rid of double airlines - with the same ICAO
 final as (
     select
         *

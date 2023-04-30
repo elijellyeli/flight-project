@@ -1,68 +1,36 @@
 blocks:
 - all_upstream_blocks_executed: true
-  color: null
-  configuration:
-    file_path: flight_dbt/models/staging/stg_arrivals.sql
+  color: blue
+  configuration: {}
   downstream_blocks:
-  - flight_dbt/models/core/fact_flights
+  - run_dbt_full
   executor_config: null
   executor_type: local_python
   has_callback: false
-  language: sql
-  name: flight_dbt/models/staging/stg_arrivals
-  status: executed
-  type: dbt
+  language: python
+  name: trigger load pipelines
+  status: updated
+  type: custom
   upstream_blocks: []
-  uuid: flight_dbt/models/staging/stg_arrivals
-- all_upstream_blocks_executed: true
+  uuid: trigger_load_pipelines
+- all_upstream_blocks_executed: false
   color: null
   configuration:
-    file_path: flight_dbt/models/staging/stg_departures.sql
-  downstream_blocks:
-  - flight_dbt/models/core/fact_flights
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: sql
-  name: flight_dbt/models/staging/stg_departures
-  status: executed
-  type: dbt
-  upstream_blocks: []
-  uuid: flight_dbt/models/staging/stg_departures
-- all_upstream_blocks_executed: true
-  color: null
-  configuration:
-    file_path: flight_dbt/models/core/fact_flights.sql
-  downstream_blocks:
-  - flight_dbt/models/core/dim_daily_flights_agg
-  - flight_dbt/models/core/dim_daily_flights_agg
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: sql
-  name: flight_dbt/models/core/fact_flights
-  status: executed
-  type: dbt
-  upstream_blocks:
-  - flight_dbt/models/staging/stg_arrivals
-  - flight_dbt/models/staging/stg_departures
-  uuid: flight_dbt/models/core/fact_flights
-- all_upstream_blocks_executed: true
-  color: null
-  configuration:
-    file_path: flight_dbt/models/core/dim_daily_flights_agg.sql
+    dbt_profile_target: dev
+    dbt_project_name: flight_dbt
+    export_write_policy: append
+    use_raw_sql: false
   downstream_blocks: []
   executor_config: null
   executor_type: local_python
   has_callback: false
-  language: sql
-  name: flight_dbt/models/core/dim_daily_flights_agg
+  language: yaml
+  name: run_dbt_full
   status: executed
   type: dbt
   upstream_blocks:
-  - flight_dbt/models/core/fact_flights
-  - flight_dbt/models/core/fact_flights
-  uuid: flight_dbt/models/core/dim_daily_flights_agg
+  - trigger_load_pipelines
+  uuid: run_dbt_full
 callbacks: []
 data_integration: null
 description: null
@@ -70,6 +38,6 @@ executor_count: 1
 extensions: {}
 name: dbt_daily_flights
 type: python
-updated_at: '2023-04-27 08:00:09'
+updated_at: '2023-04-30 19:56:30'
 uuid: dbt_daily_flights
 widgets: []
