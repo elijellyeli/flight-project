@@ -38,26 +38,6 @@ OPTIONS (
 );
 
 
--- CREATE OR REPLACE EXTERNAL TABLE `flights-project-383517.raw.routes`
---     (airline_code STRING,
---     airline_id INT64,
---     src_airport STRING,
---     src_airport_id INT64,
---     dst_airport STRING,
---     dst_airport_id INT64,
---     codeshare STRING,
---     stops INT64,
---     equipment STRING)
--- OPTIONS (
---   format = 'CSV',
---   null_marker = '\\N',
---   uris = [
---     'gs://flights_project_120423/data/seed/routes.csv'
---   ]
--- );
-
-
-
 CREATE OR REPLACE EXTERNAL TABLE `flights-project-383517.raw.airports`
     (airport_id INT64,
     name STRING,
@@ -104,25 +84,3 @@ OPTIONS (
     'gs://flights_project_120423/data/seed/airports.csv'
   ]
 );
-
-
--- CREATE OR REPLACE EXTERNAL TABLE `flights-project-383517.raw.cities`
---     (city STRING,
---     city_ascii STRING,
---     lat FLOAT64,
---     lng FLOAT64,
---     country STRING,
---     iso2 STRING,
---     iso3 STRING,
---     admin_name STRING,
---     capital STRING,
---     population FLOAT64,
---     id INT64)
--- OPTIONS (
---   format = 'CSV',
---   -- null_marker = '/N'
---   skip_leading_rows = 1,
---   uris = [
---     'gs://flights_project_120423/data/seed/worldcities.csv'
---   ]
--- );
